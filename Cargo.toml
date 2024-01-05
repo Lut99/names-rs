@@ -1,0 +1,27 @@
+[package]
+name = "names"
+version = "0.1.0"
+edition = "2021"
+authors = [ "Lut99" ]
+repository = "https://github.com/Lut99/names-rs"
+description = "A crate providing a set of names that can be used as example names."
+
+
+[dependencies]
+rand = { version = "0.8", default-features = false, features = ["std", "std_rng"], optional = true }
+
+
+[features]
+default = [ "all-names" ]
+
+rand = [ "dep:rand" ]
+
+all-names = [ "all-uppercase", "all-usualcase", "all-lowercase" ]
+all-uppercase = [ "three-uppercase" ]
+all-usualcase = [ "three-usualcase" ]
+all-lowercase = [ "three-lowercase" ]
+
+three = [ "three-uppercase", "three-usualcase", "three-lowercase" ]
+three-uppercase = []
+three-usualcase = []
+three-lowercase = []
