@@ -83,5 +83,13 @@ Aside from controlling which names are used, there are also features adding addi
   use names::three::uppercase::rand;
 
   // Could print any of the `AMY`, `BOB`, `CHO`, ... names!
-  println!(rand());
+  println!("{}", rand());
   ```
+
+
+## Contribution
+If you would like to contribute to this crate, please feel free to create [an issue](https://github.com/Lut99/names-rs/issues) or [a pull request](https://github.com/Lut99/names-rs/pulls)! I am maintaining this crate as a hobby though, so I may not always immediately respond.
+
+
+## License
+This project is currently licensed under Apache 2.0. See [LICENSE](./LICENSE) for more details.
