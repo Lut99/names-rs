@@ -4,7 +4,7 @@
 //  Created:
 //    05 Jan 2024, 16:12:55
 //  Last edited:
-//    05 Jan 2024, 16:40:42
+//    08 Jan 2024, 10:04:36
 //  Auto updated?
 //    Yes
 //
@@ -87,16 +87,60 @@ pub mod uppercase {
     pub const fn all() -> &'static [&'static str] {
         &[AMY, BOB, CHO, DAN, EVE, FEY, GUY, HAN, IAN, JOE, KEN, LEA, MEL, NOA, ONI, PAM, QIN, RON, SAM, TIM, UWE, VIC, WES, XIN, YAS, ZOE]
     }
+
+
+
+    /// Selects a random name out of all three-letter UPPERCASE names.
+    ///
+    /// # Returns
+    /// A [`&'static str`](str) that refers to a random constant in this crate.
+    ///
+    /// # Example
+    /// ```rust
+    /// use names::three::uppercase::rand;
+    ///
+    /// // Could print any of the `AMY`, `BOB`, `CHO`, ... names!
+    /// println!("{}", rand());
+    /// ```
+    #[cfg(feature = "rand")]
+    #[inline]
+    pub fn rand() -> &'static str { rand_with(&mut rand::thread_rng()) }
+
+    /// Selects a random name out of all three-letter UPPERCASE names using a provided Random Number Generator (RNG).
+    ///
+    /// # Arguments
+    /// - `rng`: The random number generator (as an [`Rng`]) to use.
+    ///
+    /// # Returns
+    /// A [`&'static str`](str) that refers to a random constant in this crate.
+    ///
+    /// # Example
+    /// ```rust
+    /// use names::three::uppercase::rand_with;
+    ///
+    /// // Could print any of the `AMY`, `BOB`, `CHO`, ... names!
+    /// println!("{}", rand_with(&mut rand::thread_rng()));
+    /// ```
+    #[cfg(feature = "rand")]
+    #[inline]
+    pub fn rand_with(rng: &mut impl rand::Rng) -> &'static str {
+        use rand::seq::SliceRandom as _;
+
+        // For now, only one option, so ez
+        all().choose(rng).unwrap()
+    }
 }
+#[cfg(all(feature = "rand", feature = "three-uppercase"))]
+pub use usualcase::{rand as rand_uppercase, rand_with as rand_uppercase_with};
 
 /// Defines the three-letter names in proper case (i.e., only first character is capitalized).
 ///
 /// # Example
 /// ```rust
-/// use names::three::capitalcase;
+/// use names::three::usualcase;
 ///
-/// assert_eq!(capitalcase::AMY, "Amy");
-/// assert_eq!(capitalcase::DAN, "Dan");
+/// assert_eq!(usualcase::AMY, "Amy");
+/// assert_eq!(usualcase::DAN, "Dan");
 /// ```
 #[cfg(feature = "three-usualcase")]
 pub mod usualcase {
@@ -162,18 +206,64 @@ pub mod usualcase {
     pub const fn all() -> &'static [&'static str] {
         &[AMY, BOB, CHO, DAN, EVE, FEY, GUY, HAN, IAN, JOE, KEN, LEA, MEL, NOA, ONI, PAM, QIN, RON, SAM, TIM, UWE, VIC, WES, XIN, YAS, ZOE]
     }
+
+
+
+    /// Selects a random name out of all three-letter Usualcase names.
+    ///
+    /// # Returns
+    /// A [`&'static str`](str) that refers to a random constant in this crate.
+    ///
+    /// # Example
+    /// ```rust
+    /// use names::three::usualcase::rand;
+    ///
+    /// // Could print any of the `Amy`, `Bob`, `Cho`, ... names!
+    /// println!("{}", rand());
+    /// ```
+    #[cfg(feature = "rand")]
+    #[inline]
+    pub fn rand() -> &'static str { rand_with(&mut rand::thread_rng()) }
+
+    /// Selects a random name out of all three-letter Usualcase names using a provided Random Number Generator (RNG).
+    ///
+    /// # Arguments
+    /// - `rng`: The random number generator (as an [`Rng`]) to use.
+    ///
+    /// # Returns
+    /// A [`&'static str`](str) that refers to a random constant in this crate.
+    ///
+    /// # Example
+    /// ```rust
+    /// use names::three::usualcase::rand_with;
+    ///
+    /// // Could print any of the `Amy`, `Bob`, `Cho`, ... names!
+    /// println!("{}", rand_with(&mut rand::thread_rng()));
+    /// ```
+    #[cfg(feature = "rand")]
+    #[inline]
+    pub fn rand_with(rng: &mut impl rand::Rng) -> &'static str {
+        use rand::seq::SliceRandom as _;
+
+        // For now, only one option, so ez
+        all().choose(rng).unwrap()
+    }
 }
 #[cfg(feature = "three-usualcase")]
-pub use usualcase::*;
+pub use usualcase::{
+    all, AMY, BOB, CHO, DAN, EVE, FEY, GUY, HAN, IAN, JOE, KEN, LEA, MEL, NOA, ONI, PAM, QIN, RON, SAM, TIM, UWE, VIC, WES, XIN, YAS, ZOE,
+};
+#[cfg(all(feature = "rand", feature = "three-usualcase"))]
+pub use usualcase::{rand as rand_usualcase, rand_with as rand_usualcase_with};
 
 /// Defines the three-letter names in lowercase.
 ///
 /// # Example
 /// ```rust
-/// use names::three::uppercase;
+/// use names::three::lowercase;
 ///
-/// assert_eq!(uppercase::AMY, "amy");
-/// assert_eq!(uppercase::DAN, "dan");
+/// assert_eq!(lowercase::AMY, "amy");
+/// assert_eq!(lowercase::DAN, "dan");
 /// ```
 #[cfg(feature = "three-lowercase")]
 pub mod lowercase {
@@ -239,4 +329,110 @@ pub mod lowercase {
     pub const fn all() -> &'static [&'static str] {
         &[AMY, BOB, CHO, DAN, EVE, FEY, GUY, HAN, IAN, JOE, KEN, LEA, MEL, NOA, ONI, PAM, QIN, RON, SAM, TIM, UWE, VIC, WES, XIN, YAS, ZOE]
     }
+
+
+
+    /// Selects a random name out of all three-letter lowercase names.
+    ///
+    /// # Returns
+    /// A [`&'static str`](str) that refers to a random constant in this crate.
+    ///
+    /// # Example
+    /// ```rust
+    /// use names::three::lowercase::rand;
+    ///
+    /// // Could print any of the `amy`, `bob`, `cho`, ... names!
+    /// println!("{}", rand());
+    /// ```
+    #[cfg(feature = "rand")]
+    #[inline]
+    pub fn rand() -> &'static str { rand_with(&mut rand::thread_rng()) }
+
+    /// Selects a random name out of all three-letter lowercase names using a provided Random Number Generator (RNG).
+    ///
+    /// # Arguments
+    /// - `rng`: The random number generator (as an [`Rng`]) to use.
+    ///
+    /// # Returns
+    /// A [`&'static str`](str) that refers to a random constant in this crate.
+    ///
+    /// # Example
+    /// ```rust
+    /// use names::three::lowercase::rand_with;
+    ///
+    /// // Could print any of the `amy`, `bob`, `cho`, ... names!
+    /// println!("{}", rand_with(&mut rand::thread_rng()));
+    /// ```
+    #[cfg(feature = "rand")]
+    #[inline]
+    pub fn rand_with(rng: &mut impl rand::Rng) -> &'static str {
+        use rand::seq::SliceRandom as _;
+
+        // For now, only one option, so ez
+        all().choose(rng).unwrap()
+    }
+}
+#[cfg(all(feature = "rand", feature = "three-lowercase"))]
+pub use lowercase::{rand as rand_lowercase, rand_with as rand_lowercase_with};
+
+
+
+
+
+/***** RANDOM FUNCTIONS *****/
+/// Selects a random name out of \*all\* available three-letter names (including UPPERCASE, Usualcase and lowercase).
+///
+/// Note that this dependent on which features are given. For example, if only the `three-uppercase`-feature is given,
+/// this will only return uppercase names.
+///
+/// # Returns
+/// A [`&'static str`](str) that refers to a random constant in this crate.
+///
+/// # Example
+/// ```rust
+/// use names::three::rand;
+///
+/// // Could print any of the `AMY`, `Bob`, `cho`, ... names!
+/// println!("{}", rand());
+/// ```
+#[cfg(all(feature = "rand", any(feature = "three-uppercase", feature = "three-usualcase", feature = "three-lowercase")))]
+#[inline]
+pub fn rand() -> &'static str { rand_with(&mut rand::thread_rng()) }
+
+/// Selects a random name out of \*all\* available three-letter names (including UPPERCASE, Usualcase and lowercase) using a provided Random Number Generator (RNG).
+///
+/// Note that this dependent on which features are given. For example, if only the `three-uppercase`-feature is given,
+/// this will only return uppercase names.
+///
+/// # Arguments
+/// - `rng`: The random number generator (as an [`Rng`]) to use.
+///
+/// # Returns
+/// A [`&'static str`](str) that refers to a random constant in this crate.
+///
+/// # Example
+/// ```rust
+/// use names::three::rand_with;
+/// use rand::thread_rng;
+///
+/// // Could print any of the `AMY`, `Bob`, `cho`, ... names!
+/// println!("{}", rand_with(&mut thread_rng()));
+/// ```
+#[cfg(all(feature = "rand", any(feature = "three-uppercase", feature = "three-usualcase", feature = "three-lowercase")))]
+#[inline]
+pub fn rand_with(rng: &mut impl rand::Rng) -> &'static str {
+    use rand::seq::IteratorRandom as _;
+
+    // Construct a list of slices to take into account
+    let mut sets: Vec<&'static [&'static str]> = vec![];
+    #[cfg(feature = "three-uppercase")]
+    sets.push(uppercase::all());
+    #[cfg(feature = "three-usualcase")]
+    sets.push(usualcase::all());
+    #[cfg(feature = "three-lowercase")]
+    sets.push(lowercase::all());
+
+    // Take a random iterator sample on the flattened iterator
+    // SAFETY: The unwrap() is OK because we guarantee statically the slices are populated, and the feature gates assert that at least one set is present.
+    sets.into_iter().map(|s| s.iter()).flatten().choose(rng).unwrap()
 }
